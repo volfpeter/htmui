@@ -1,0 +1,13 @@
+{
+  "name": "htmui",
+  "version": "0.0.0",
+  "description": "JS tooling for htmui",
+  "author": "Peter Volf",
+  "scripts": {},
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "basecoat-css": "^0.3.11",
+    "tailwindcss": "^4.1.16",
+    "uglify-js": "^3.19.3"
+  }
+}

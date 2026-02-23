@@ -1,0 +1,72 @@
+[project]
+name = "htmui"
+description = "htmy component library"
+readme = "README.md"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "htmy[lxml]>=0.10.1",
+    "typer>=0.24.1",
+]
+
+[dependency-groups]
+dev = [
+    "holm>=0.9.0",
+    "mypy>=1.18.2",
+    "poethepoet>=0.37.0",
+    "pydantic-settings>=2.12.0",
+    "ruff>=0.14.3",
+    "uvicorn>=0.38.0",
+    "watchfiles>=1.1.1",
+]
+
+[tool.mypy]
+strict = true
+show_error_codes = true
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff]
+line-length = 108
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".venv",
+    "dist",
+    "docs",
+]
+lint.select = [
+    "B", # flake8-bugbear
+    "C", # flake8-comprehensions
+    "E", # pycodestyle errors
+    "F", # pyflakes
+    "I", # isort
+    "S", # flake8-bandit - we must ignore these rules in tests
+    "W", # pycodestyle warnings
+]
+
+[tool.poe.tasks]
+
+basecoat-dev = "uvicorn basecoat_app.main:app --reload"
+basecoat-prod = "uvicorn basecoat_app.main:app --reload"
+
+build-basecoat-content = "python -m basecoat_app.cli build-static-content"
+
+build-basecoat-dev-css = "npx @tailwindcss/cli -i static/basecoat-base.css -o static/basecoat-dev.css"
+build-basecoat-prod-css = "npx @tailwindcss/cli -i ./static/basecoat-base.css -o ./static/basecoat.css --minify"
+
+build.sequence = ["build-basecoat-content", "build-basecoat-prod-css"]
+
+format = "ruff format . --check"
+format-fix = "ruff format ."
+
+lint = "ruff check ."
+lint-fix = "ruff check . --fix"
+
+mypy = "mypy ."
+
+check.sequence = ["format", "lint", "mypy"]
+check.ignore_fail = "return_non_zero"

@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "basecoat-css";
+@import "./highlightjs.css";
+
+main {
+    h1 {
+        @apply mt-12 mb-6 text-3xl font-semibold first:mt-2;
+    }
+
+    h2 {
+        @apply mt-8 mb-6 text-2xl font-semibold first:mt-2;
+    }
+
+    h3 {
+        @apply mt-6 mb-6 text-xl font-semibold first:mt-2;
+    }
+
+    h4 {
+        @apply mt-6 mb-6 font-semibold first:mt-2;
+    }
+
+    p {
+        @apply my-6;
+
+        a {
+            @apply font-medium underline;
+        }
+
+        code:not(pre > code) {
+            @apply relative rounded-md bg-muted/50 px-[0.2rem] py-[0.2rem] font-mono text-sm;
+        }
+    }
+
+    ol {
+        @apply list-decimal list-inside;
+
+        li {
+            @apply mt-2;
+        }
+    }
+
+    ul {
+        @apply list-disc list-inside;
+
+        li {
+            @apply mt-2;
+        }
+    }
+}

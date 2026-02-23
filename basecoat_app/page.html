@@ -1,0 +1,49 @@
+<h1>htmui</h1>
+<p><code>htmui</code> is a Python library that implements complex UI components using <code>htmy</code>.</p>
+<p>It is designed with hypermedia applications, and specifically HTMX in mind.</p>
+<p>What if you are using Jinja or similar templating engines instead of <code>htmy</code>? Converting the components from <code>htmy</code> to your templating engine of choice is straightforward, because of how <code>htmy</code> mimics HTML.</p>
+<h2>Prerequisites</h2>
+<p>You need to have <a href="https://volfpeter.github.io/htmy/" target="_blank">htmy</a> installed in your project to be able to use <code>htmui</code> components.</p>
+<p>You can do it with a simple <code>pip install htmy</code>.</p>
+<p>For the best developer experience, it is recommended to use <a href="https://volfpeter.github.io/holm/" target="_blank">holm</a> as your application framework. It brings built-in <code>htmy</code> (and thus <code>htmui</code>) and HTMX support, and is built around FastAPI.</p>
+<h2>How to use</h2>
+<p><code>htmui</code> is designed to be "vendored". You don't install either the library or its components. Instead you copy the components you need into your project and adjust them to fit your requirements.</p>
+<h2>UI framework integrations</h2>
+<h3>BasecoatUI</h3>
+<p><a href="https://basecoatui.com/" target="_blank">BasecoatUI</a> components and utilities are in the <code>htmui/basecoat</code> package.</p>
+<p>These components require <a href="https://basecoatui.com/" target="_blank">BasecoatUI</a> and <a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a> to be installed. While TailwindCSS fully works from a CDN, some BasecoatUI classes do not, so a full local JS setup is recommended.</p>
+<p>Most of the BasecoatUI components are implemented, except trivial ones that only require a single CSS class name.</p>
+<p>There are also extra components like <code>codeblock</code>, that use BasecoatUI to a degree, but are not in BasecoatUI.</p>
+<h3>Highlight.js</h3>
+<p><a href="https://highlightjs.org/" target="_blank">Highlight.js</a> components and utilities are in the <code>htmui/highlightjs.py</code> module.</p>
+<h3>TailwindCSS</h3>
+<p><a href="https://tailwindcss.com/" target="_blank">TailwindCSS</a> components and utilities are in the <code>htmui/tailwind</code> package.</p>
+<p>There are a couple of simple utility components that use TailwindCSS classes. The goal of these components is to complement TailwindCSS-based UI libraries.</p>
+<h3>Unstyled</h3>
+<p>General components and utilities are in the <code>htmui/unstyled</code> package.</p>
+<p>Similarly minimal as the TailwindCSS components, the goal is to complement TailwindCSS-based UI libraries.</p>
+<h2>Development</h2>
+<h3>Tools</h3>
+<p>Python:</p>
+<ul>
+<li><code>uv</code> for project and dependency management.</li>
+<li><code>poethepoet</code> for running tasks. Run <code>uv run poe</code> to see all available tasks.</li>
+<li><code>mypy</code> for static code analysis.</li>
+<li><code>ruff</code> is used for formatting and linting.</li>
+</ul>
+<p>JavaScript:</p>
+<ul>
+<li><code>npm</code> for managing JavaScript dependencies for example applications.</li>
+</ul>
+<p>Other:</p>
+<ul>
+<li><code>honcho</code> for running applications that require multiple processes, like a Python application and the TailwindCSS CLI.</li>
+</ul>
+<p>To get started, run <code>uv sync</code> and <code>npm install</code>.</p>
+<h2>Applications</h2>
+<h3>Basecoat</h3>
+<p>Just run <code>honcho start</code>. This will spin up <code>basecoat_app</code> and the corresponding TailwindCSS CLI that generates the application's CSS file.</p>
+<h2>License</h2>
+<p>The package is open-sourced under the conditions of the <a href="https://choosealicense.com/licenses/mit/" target="_blank">MIT license</a>.</p>
+<h2>Credits</h2>
+<p>This project wouldn't exist without the JavaScript components and excellent documentation of <a href="https://basecoatui.com/" target="_blank">BasecoatUI</a>.</p>
