@@ -8,11 +8,11 @@ What if you are using Jinja or similar templating engines instead of `htmy`? Con
 
 ## Prerequisites
 
-You need to have [htmy](https://volfpeter.github.io/htmy/){:target="\_blank"} installed in your project to be able to use `htmui` components.
+You need to have [htmy](https://volfpeter.github.io/htmy/) installed in your project to be able to use `htmui` components.
 
 You can do it with a simple `pip install htmy`.
 
-For the best developer experience, it is recommended to use [holm](https://volfpeter.github.io/holm/){:target="\_blank"} as your application framework. It brings built-in `htmy` (and thus `htmui`) and HTMX support, and is built around FastAPI.
+For the best developer experience, it is recommended to use [holm](https://volfpeter.github.io/holm/) as your application framework. It brings built-in `htmy` (and thus `htmui`) and HTMX support, and is built around FastAPI.
 
 ## How to use
 
@@ -22,9 +22,9 @@ For the best developer experience, it is recommended to use [holm](https://volfp
 
 ### BasecoatUI
 
-[BasecoatUI](https://basecoatui.com/){:target="\_blank"} components and utilities are in the `htmui/basecoat` package.
+[BasecoatUI](https://basecoatui.com/) components and utilities are in the `htmui/basecoat` package.
 
-These components require [BasecoatUI](https://basecoatui.com/){:target="\_blank"} and [TailwindCSS](https://tailwindcss.com/){:target="\_blank"} to be installed. While TailwindCSS fully works from a CDN, some BasecoatUI classes do not, so a full local JS setup is recommended.
+These components require [BasecoatUI](https://basecoatui.com/) and [TailwindCSS](https://tailwindcss.com/) to be installed. While TailwindCSS fully works from a CDN, some BasecoatUI classes do not, so a full local JS setup is recommended.
 
 Most of the BasecoatUI components are implemented, except trivial ones that only require a single CSS class name.
 
@@ -32,11 +32,11 @@ There are also extra components like `codeblock`, that use BasecoatUI to a degre
 
 ### Highlight.js
 
-[Highlight.js](https://highlightjs.org/){:target="\_blank"} components and utilities are in the `htmui/highlightjs.py` module.
+[Highlight.js](https://highlightjs.org/) components and utilities are in the `htmui/highlightjs.py` module.
 
 ### TailwindCSS
 
-[TailwindCSS](https://tailwindcss.com/){:target="\_blank"} components and utilities are in the `htmui/tailwind` package.
+[TailwindCSS](https://tailwindcss.com/) components and utilities are in the `htmui/tailwind` package.
 
 There are a couple of simple utility components that use TailwindCSS classes. The goal of these components is to complement TailwindCSS-based UI libraries.
 
@@ -75,8 +75,8 @@ Just run `honcho start`. This will spin up `basecoat_app` and the corresponding 
 
 ## License
 
-The package is open-sourced under the conditions of the [MIT license](https://choosealicense.com/licenses/mit/){:target="\_blank"}.
+The package is open-sourced under the conditions of the [MIT license](https://choosealicense.com/licenses/mit/).
 
 ## Credits
 
-This project wouldn't exist without the JavaScript components and excellent documentation of [BasecoatUI](https://basecoatui.com/){:target="\_blank"}.
+This project wouldn't exist without the JavaScript components and excellent documentation of [BasecoatUI](https://basecoatui.com/).
