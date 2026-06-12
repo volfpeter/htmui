@@ -21,6 +21,9 @@ dev = [
     "watchfiles>=1.1.1",
 ]
 
+[tool.fastapi]
+entrypoint = "basecoat_app.main:app"
+
 [tool.mypy]
 strict = true
 show_error_codes = true
