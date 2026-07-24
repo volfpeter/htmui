@@ -2,8 +2,9 @@ from htmy import ComponentType, SafeStr, html
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/theme-switcher/"
+
 
 light_icon = SafeStr(
     '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" '
@@ -25,39 +26,33 @@ dark_icon = SafeStr(
 
 js = SafeStr(
     """<script>
-    (() => {
+  (() => {
     try {
-        const stored = localStorage.getItem('themeMode');
-        if (stored ? stored === 'dark'
-                    : matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-        }
+      const stored = localStorage.getItem("themeMode");
+      if (stored ? stored === "dark" : matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.classList.add("dark");
+      }
     } catch (_) {}
-
-    const apply = dark => {
-        document.documentElement.classList.toggle('dark', dark);
-        try { localStorage.setItem('themeMode', dark ? 'dark' : 'light'); } catch (_) {}
-    };
-
-    document.addEventListener('basecoat:theme', (event) => {
-        const mode = event.detail?.mode;
-        apply(mode === 'dark' ? true
-            : mode === 'light' ? false
-            : !document.documentElement.classList.contains('dark'));
-    });
-    })();
+  })();
 </script>"""
 )
 
 
-def theme_switcher(class_: str = "btn-icon-outline size-8") -> ComponentType:
+def theme_switcher(
+    *,
+    class_: str = "btn size-8",
+    variant: str = "outline",
+    size: str = "icon",
+) -> ComponentType:
     return html.button(
         html.span(light_icon, class_="hidden dark:block"),
         html.span(dark_icon, class_="block dark:hidden"),
         type="button",
         aria_label="Toggle theme",
+        class_=class_,
         data_tooltip="Toggle theme",
         data_side="bottom",
-        onclick="document.dispatchEvent(new CustomEvent('basecoat:theme'))",
-        class_=class_,
+        data_size=size,
+        data_variant=variant,
+        onclick="window.basecoat.theme.toggle()",
     )

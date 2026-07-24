@@ -32,6 +32,7 @@ def sidebar(path: str) -> ComponentType:
             url_prefix="/unstyled",
         ),
         header=html.header(html.a(SafeStr("htmui"), href="/", hx_boost="true"), class_="font-semibold"),
+        id="sidebar",
     )
 
 

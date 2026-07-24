@@ -4,26 +4,26 @@ from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/toast/"
 
 js = SafeStr(
-    '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3/dist/js/toast.min.js" defer></script>'
+    '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/toast.min.js" defer></script>'
 )
 
 
 def toaster(
     *children: ComponentType,
+    id: str,
     class_: str | None = None,
     align: Literal["start", "center", "end"] | None = None,
     **kwargs: PropertyValue,
 ) -> ComponentType:
     """Toast container."""
-    kwargs["id"] = "toaster"
     if align is not None:
         kwargs["data-align"] = align
 
-    return html.div(*children, class_=join_classes("toaster", class_), **kwargs)
+    return html.div(*children, class_=join_classes("toaster", class_), id=id, **kwargs)
 
 
 def toast(

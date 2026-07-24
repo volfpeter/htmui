@@ -16,10 +16,13 @@ def alert(
     destructive: bool = False,
     **kwargs: PropertyValue,
 ) -> ComponentType:
+    if destructive:
+        kwargs["data_variant"] = "destructive"
+
     return html.div(
         icon,
         html.h2(title, class_=title_class),
         html.section(*children, class_=content_class) if len(children) > 0 else None,
-        class_=join_classes("alert-destructive" if destructive else "alert", class_),
+        class_=join_classes("alert", class_),
         **kwargs,
     )
