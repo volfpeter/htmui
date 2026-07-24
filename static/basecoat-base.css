@@ -31,19 +31,21 @@ main {
         }
     }
 
-    ol {
-        @apply list-decimal list-inside;
+    [data-markdown] {
+        ol {
+            @apply list-decimal list-inside;
 
-        li {
-            @apply mt-2;
+            li {
+                @apply mt-2;
+            }
         }
-    }
 
-    ul {
-        @apply list-disc list-inside;
+        ul {
+            @apply list-disc list-inside;
 
-        li {
-            @apply mt-2;
+            li {
+                @apply mt-2;
+            }
         }
     }
 }
