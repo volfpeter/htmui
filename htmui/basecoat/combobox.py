@@ -22,7 +22,7 @@ dropdown_icon = SafeStr(
 def combobox(
     *children: ComponentType,
     id: str,
-    button_class: str = "btn-outline",
+    button_class: str | None = None,
     button_label: str = "",
     button_icon: ComponentType = dropdown_icon,
     class_: str | None = None,
@@ -34,7 +34,8 @@ def combobox(
         html.button(
             html.span(button_label),
             button_icon,
-            class_=join_classes("btn-outline justify-between", button_class),
+            class_=join_classes("btn justify-between", button_class),
+            data_variant="outline",
             id=button_id,
             type="button",
             aria_haspopup="listbox",

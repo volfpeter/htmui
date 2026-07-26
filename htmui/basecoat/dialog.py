@@ -1,4 +1,6 @@
-from htmy import Component, ComponentType, PropertyValue, SafeStr, as_component_sequence, html
+from htmy import Component, ComponentType, PropertyValue, SafeStr, as_component_sequence, html, join_classes
+
+from .button import ButtonVariant
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
@@ -17,9 +19,11 @@ def dialog(
     title: str,
     actions: Component = None,
     close_button: ComponentType = None,
+    alert: bool = False,
     **kwargs: PropertyValue,
 ) -> ComponentType:
     title_id = f"{id}-title"
+    dialog_class = "alert-dialog" if alert else "dialog"
     return html.dialog(
         html.div(
             html.header(html.h2(title, id=title_id)),
@@ -28,7 +32,7 @@ def dialog(
             close_button if close_button else None,
         ),
         id=id,
-        class_="dialog w-full sm:max-w-[425px] max-h-[612px]",
+        class_=f"{dialog_class} w-full sm:max-w-[425px] max-h-[612px]",
         aria_labelledby=title_id,
         **kwargs,
     )
@@ -64,11 +68,19 @@ def close_button(
 
 
 def show_dialog_button(
-    title: ComponentType, *, dialog_id: str, class_: str = "btn-outline"
+    title: ComponentType,
+    *,
+    dialog_id: str,
+    class_: str | None = None,
+    variant: ButtonVariant | None = "outline",
+    **kwargs: PropertyValue,
 ) -> ComponentType:
+    if variant is not None:
+        kwargs["data_variant"] = variant
     return html.button(
         title,
-        class_=class_,
+        class_=join_classes("btn", class_),
         type="button",
         onclick=f"document.getElementById('{dialog_id}').showModal()",
+        **kwargs,
     )
