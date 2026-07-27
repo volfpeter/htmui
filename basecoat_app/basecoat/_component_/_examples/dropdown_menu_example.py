@@ -7,20 +7,20 @@ from htmui.basecoat.menu import menu_item, menu_item_group, menu_separator
 def example() -> ComponentType:
     return dropdown_menu(
         menu_item_group(
-            menu_item(html.span("Commit")),
-            menu_item(html.span("Pull")),
-            menu_item(html.span("Push")),
+            menu_item(html.span("Commit"), shortcut="⌘+K"),
+            menu_item(html.span("Pull"), shortcut="⇧⌘P"),
+            menu_item(html.span("Push"), shortcut="⇧⌘K"),
             id="dropdown-group-1",
             label="Git",
             label_props={"class": "font-semibold"},
         ),
         menu_separator(),
         menu_item_group(
-            menu_item(html.span("Review")),
-            menu_item(html.span("Approve"), disabled=True),
-            menu_item(html.span("Comment")),
+            menu_item(html.span("Approve"), kind="radio", checked=True, shortcut="⌘+A"),
+            menu_item(html.span("Comment"), kind="radio", disabled=True, shortcut="⌘+/"),
+            menu_item(html.span("Reject"), kind="radio", shortcut="⌘+R"),
             id="dropdown-group-2",
-            label="Actions",
+            label="Review",
             label_props={"class": "font-semibold"},
         ),
         button_content="Dropdown menu",
