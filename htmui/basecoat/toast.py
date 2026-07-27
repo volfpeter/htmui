@@ -2,6 +2,8 @@ from typing import Literal
 
 from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
 
+from .typing import Align
+
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
 __framework_version__ = "1"
@@ -16,7 +18,7 @@ def toaster(
     *children: ComponentType,
     id: str,
     class_: str | None = None,
-    align: Literal["start", "center", "end"] | None = None,
+    align: Align | None = None,
     **kwargs: PropertyValue,
 ) -> ComponentType:
     """Toast container."""

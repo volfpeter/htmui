@@ -1,8 +1,6 @@
-from typing import Literal, TypeAlias
+from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
 
-from htmy import ComponentType, Properties, SafeStr, html, join_classes
-
-from .button import ButtonVariant
+from .typing import Align, ButtonVariant, Side
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
@@ -14,9 +12,6 @@ js = SafeStr(
     '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3/dist/js/popover.min.js" defer></script>'
 )
 
-PopoverAlign: TypeAlias = Literal["start", "center", "end"]
-PopoverSide: TypeAlias = Literal["top", "bottom", "left", "right", "inline-start", "inline-end"]
-
 
 def popover(
     *children: ComponentType,
@@ -24,13 +19,13 @@ def popover(
     button_content: ComponentType,
     button_class: str | None = None,
     button_variant: ButtonVariant | None = "outline",
-    popover_align: PopoverAlign | None = None,
+    popover_align: Align | None = None,
     popover_class: str = "w-80",
-    popover_side: PopoverSide | None = None,
+    popover_side: Side | None = None,
 ) -> ComponentType:
     button_id = f"{id}-button"
     content_id = f"{id}-content"
-    popover_props: Properties = {}
+    popover_props: dict[str, PropertyValue] = {}
     if popover_align is not None:
         popover_props["data_align"] = popover_align
     if popover_side is not None:

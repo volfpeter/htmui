@@ -1,6 +1,6 @@
 from htmy import Component, ComponentType, PropertyValue, SafeStr, as_component_sequence, html, join_classes
 
-from .button import ButtonVariant
+from .typing import ButtonVariant
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
