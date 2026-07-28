@@ -1,5 +1,6 @@
 from htmy import ComponentType, html
 
+from htmui.basecoat.separator import separator
 from htmui.unstyled import menu
 
 
@@ -15,7 +16,7 @@ def example() -> ComponentType:
                 label="Git",
                 label_props={"class": "font-semibold"},
             ),
-            menu.separator(),
+            separator,
             menu.group(
                 menu.menu_item(html.span("Review"), data_label="review"),
                 menu.menu_item(html.span("Approve"), data_label="approve", disabled=True),

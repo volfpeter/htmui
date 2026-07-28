@@ -1,7 +1,8 @@
 from htmy import ComponentSequence, ComponentType, html
 
 from htmui.basecoat.command import command, command_dialog, command_item, search_icon
-from htmui.basecoat.menu import menu_item_group, menu_separator
+from htmui.basecoat.menu import menu_item_group
+from htmui.basecoat.separator import separator
 
 
 def example() -> ComponentType:
@@ -33,7 +34,7 @@ def command_menu() -> ComponentSequence:
             id="command-group-1",
             label="Git",
         ),
-        menu_separator(),
+        separator,
         menu_item_group(
             command_item(html.span("Review"), filter="Review"),
             command_item(html.span("Approve"), filter="Approve", disabled=True),

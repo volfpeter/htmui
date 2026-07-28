@@ -60,11 +60,6 @@ def menu_item_group(
     )
 
 
-def menu_separator() -> ComponentType:
-    """Menu item separator."""
-    return html.hr(role="separator")
-
-
 def menu_item(  # noqa: C901
     *children: ComponentType,
     kind: MenuItemKind = "item",

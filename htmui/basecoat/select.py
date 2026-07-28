@@ -53,11 +53,6 @@ def option(
     return html.div(*children, **kwargs)
 
 
-def separator(**kwargs: PropertyValue) -> ComponentType:
-    """An `hr` separator between groups/options."""
-    return html.hr(role="separator", **kwargs)
-
-
 def group(
     *items: ComponentType,
     heading: ComponentType,

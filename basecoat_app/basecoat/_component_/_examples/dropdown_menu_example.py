@@ -1,7 +1,8 @@
 from htmy import ComponentType, html
 
 from htmui.basecoat.dropdown_menu import dropdown_menu
-from htmui.basecoat.menu import menu_item, menu_item_group, menu_separator
+from htmui.basecoat.menu import menu_item, menu_item_group
+from htmui.basecoat.separator import separator
 
 
 def example() -> ComponentType:
@@ -14,7 +15,7 @@ def example() -> ComponentType:
             label="Git",
             label_props={"class": "font-semibold"},
         ),
-        menu_separator(),
+        separator,
         menu_item_group(
             menu_item(html.span("Approve"), kind="radio", checked=True, shortcut="⌘+A"),
             menu_item(html.span("Comment"), kind="radio", disabled=True, shortcut="⌘+/"),

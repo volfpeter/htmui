@@ -1,51 +1,59 @@
-# Agent notes for htmui
+# htmui
 
-## Repo structure
+`htmui` is an `htmy` component library that wraps [BasecoatUI](https://basecoatui.com).
+Each component is a thin Python helper that reproduces Basecoat's documented
+HTML/CSS/JS so users get server-rendered markup that Basecoat's runtime enhances.
 
-- `htmui/`: htmy component library
-  - `basecoat/`: BasecoatUI component implementations (Python helpers)
-  - `tailwind/`: Tailwind-specific helpers
-  - `unstyled/`: Unstyled primitives (e.g. `menu`)
-- `basecoat_app/`: Demo/docs application
-  - `basecoat/_component_/`: Pages and examples for each implemented component
-  - `basecoat/_component_/_examples/`: Example code rendered on each page
-  - `basecoat/_component_/page.py`: Sidebar/source-of-truth for implemented components
+## Repo layout
 
-The BasecoatUI repo may be checked out to `basecoat/`, its structure:
+- `htmui/` — the component library
+  - `basecoat/` — BasecoatUI component implementations (`select.py`, `dialog.py`, ...).
+    Wrapper components live here, grouped by target framework. Apps copy these files
+    into their own codebase and adapt as needed.
+  - `tailwind/`, `unstyled/` — other, framework-agnostic helpers.
+  - `basecoat/typing.py` — shared types only (`Align`, `Side`, `ButtonVariant`,
+    `ButtonSize`). Component-scoped types live in their own module.
+- `basecoat/` — the checked-out BasecoatUI source. The source of truth for markup
+  and APIs:
+  - `site/src/docs/components/*.mdx` — component docs (the `<Preview>` block holds the
+    canonical DOM).
+  - `src/css/components/*.css` — defines allowed `data-*` values.
+  - `src/templates/{jinja,nunjucks}/` — reference template macros, useful for naming
+    and argument intent.
+- `basecoat_app/` — demo/docs app rendering every component.
+  - `basecoat/_component_/page.py` — catalog mapping slug → implementation + example.
+  - `basecoat/_component_/_examples/` — one `*_example.py` per component showing real
+    usage. Check the example before changing a component's public API.
 
-- `site/src/docs/components/*.mdx`: Component documentation
-- `src/css/components/`: Component CSS
-- `src/js/`: Component JavaScript
-- `src/templates/{jinja,nunjucks}/`: Reference template macros
+## Conventions
 
-## Basecoat to htmui mapping policy
+- Basecoat uses root class + `data-*` attributes (`class="btn" data-variant="outline"`),
+  not composed classes like `btn-outline`. Don't invent `data-*` values — grep the
+  Basecoat source.
+- Components are flat functions returning `htmy` `ComponentType`, not classes. Match
+  the style of existing components (see `select.py`, `dropdown_menu.py`).
+- Don't implement every Basecoat option. Cover general use-cases; `**kwargs` passes
+  rare configs straight to the element. Users copy and modify components freely.
+- Run lint/types before finishing:
 
-- `htmui.basecoat` modules produce the HTML/CSS/JS markup documented in BasecoatUI
-- One htmui component may cover multiple Basecoat components (e.g. `dialog` also serves alert-dialog)
-- Trivial Basecoat components - single class, no required structure or extra JS - may be omitted from htmui and rendered directly with `htmy` primitives, eg. `html.input_(class_="input")`
-- App-specific utilities that happen to use Basecoat classes (e.g. `codeblock`) can live in `htmui/basecoat/` even if they are not Basecoat components
+  ```
+  uv run poe check        # ruff format --check, ruff check, mypy (strict)
+  uv run poe check --fix  # also auto-fix
+  uv run poe basecoat-dev # serve the demo app
+  ```
 
-## Component discovery
+- When something about a component's structure isn't clear, read existing
+  implementations — they set the patterns. See `.agents/component-patterns.md` for
+  the detailed conventions.
 
-- Basecoat component list if checked out: `basecoat/site/src/docs/components/*.mdx`
-- Implemented htmui components: `htmui/basecoat/*.py`
-- Live component catalog: `basecoat_app/basecoat/_component_/page.py`
-- Examples show real usage and should be checked before changing APIs
+## Debugging
 
-## API and docstring conventions
+You don't need to verify every change, but when output looks wrong or you want to
+inspect rendered markup, run an inline renderer:
 
-- Docstrings should describe behavior from the user's point of view, not the
-  implementation detail (e.g. what an attribute does for the user, not which
-  HTML attribute it sets).
-- For form components, prefer `name` as the primary public identifier. Derive
-  internal element ids from `name` (e.g. `{name}-root`) instead of exposing a
-  separate `id` argument. The user cares about the submitted form data, not
-  internal ids.
+```
+uv run python -c "from htmy import render; from htmui.basecoat import select; ..."
+```
 
-## Key learnings
-
-- Basecoat v1 uses root class + data attributes (`class="btn" data-variant="outline"`), not the old composed classes (`btn-outline`). Legacy aliases are only in the optional compat stylesheet
-- CSS style packs are standalone bundles (`vega.css`, `nova.css`, etc.); do not layer them on top of each other
-- JavaScript is split into `basecoat.min.js` runtime + per-component scripts (or `all.min.js`). Component methods (`sidebar.toggle()`, `toaster.toast()`, `window.basecoat.theme.*`) replaced the old `basecoat:*` custom events
-- Some documented "components" are patterns, not CSS components: Spinner, Pagination, Scroll Area
-- The checked-out `basecoat/` repo is the best source of truth for markup and API changes; docs often include template-macro hints
+Import the component(s), build the tree, and print the rendered string. This is a
+debugging tool — use it when needed, not as a required step.
