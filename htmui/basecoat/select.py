@@ -10,7 +10,7 @@ __framework_url__ = "https://basecoatui.com/components/select/"
 
 
 js = SafeStr(
-    '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1.0.2/dist/js/select.min.js" defer></script>'
+    '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/select.min.js" defer></script>'
 )
 
 
