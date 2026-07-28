@@ -1,6 +1,7 @@
 from htmy import ComponentType, SafeStr, html
 
 from htmui.basecoat.sidebar import sidebar as sidebar_component
+from htmui.basecoat.sidebar import sidebar_group, sidebar_item
 
 from .basecoat._component_.page import basecoat_components
 from .component_docs import ComponentData
@@ -31,7 +32,7 @@ def sidebar(path: str) -> ComponentType:
             title=SafeStr("Unstyled"),
             url_prefix="/unstyled",
         ),
-        header=html.header(html.a(SafeStr("htmui"), href="/", hx_boost="true"), class_="font-semibold"),
+        header=html.a(SafeStr("htmui"), href="/", class_="font-semibold", hx_boost="true"),
         id="sidebar",
     )
 
@@ -44,23 +45,19 @@ def _component_group(
     title: str,
     url_prefix: str,
 ) -> ComponentType:
-    return html.div(
-        html.h3(title, id=id, class_="pt-2"),
-        html.ul(
-            *(
-                html.li(
-                    html.a(
-                        comp_data["title"],
-                        href=href,
-                        hx_boost="true",
-                        **({"aria-current": "page"} if path == href else {}),
-                    )
-                )
-                for comp_path, comp_data in components.items()
-                if (href := f"{url_prefix}/{comp_path}/")
-            ),
-            class_="flex flex-col gap-0.5",
+    return sidebar_group(
+        *(
+            sidebar_item(
+                comp_data["title"],
+                href=href,
+                current=(path == href),
+                hx_boost="true",
+            )
+            for comp_path, comp_data in components.items()
+            if (href := f"{url_prefix}/{comp_path}/")
         ),
-        class_="group",
-        aria_labelledby=id,
+        label=title,
+        label_id=id,
+        group_class="pt-2",
+        list_class="flex flex-col gap-0.5",
     )
