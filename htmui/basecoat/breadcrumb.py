@@ -5,7 +5,7 @@ from htmy.utils import join, join_components
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/breadcrumb/"
 
 chevron_right_icon = SafeStr(
@@ -22,21 +22,22 @@ def breadcrumb(
     class_: str | None = None,
     **kwargs: PropertyValue,
 ) -> ComponentType:
-    return html.ol(
-        *join_components(
-            tuple(
-                html.li(
-                    child,
-                    class_="inline-flex items-center gap-1.5",
-                )
-                for child in children
-                if child is not None
+    """
+    Breadcrumb navigation component.
+
+    Arguments:
+        *children: Breadcrumb items.
+        separator: Separator to be inserted between items.
+        class_: Extra CSS classes for the root element.
+        **kwargs: Extra attributes for the root element.
+    """
+    return html.nav(
+        html.ol(
+            *join_components(
+                tuple(html.li(child) for child in children if child is not None),
+                html.li(separator, aria_hidden="true"),
             ),
-            separator,
         ),
-        class_=join(
-            "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5",
-            class_,
-        ),
+        class_=join("breadcrumb", class_),
         **kwargs,
     )
