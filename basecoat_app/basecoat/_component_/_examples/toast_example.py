@@ -1,6 +1,6 @@
 from htmy import ComponentType, html
 
-from htmui.basecoat.toast import toast, toaster
+from htmui.basecoat.toast import toast, toast_content, toaster
 
 _toaster_id = "toaster"
 
@@ -25,7 +25,10 @@ def example() -> ComponentType:
         ),
         toaster(
             toast(
-                html.section(html.h2("Permanent toast."), html.p("No icons, no actions.")),
+                toast_content(
+                    "No icons, no actions.",
+                    title="Permanent toast",
+                ),
                 category="success",
                 duration=-1,
             ),
