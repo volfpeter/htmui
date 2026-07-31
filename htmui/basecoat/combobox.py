@@ -136,7 +136,7 @@ def combobox(  # noqa: C901
     if auto_highlight:
         kwargs["data-auto-highlight"] = "true"
     if data_format is not None:
-        kwargs["data-format"] = format
+        kwargs["data-format"] = data_format
 
     input_attrs: dict[str, PropertyValue] = {
         "type": "text",

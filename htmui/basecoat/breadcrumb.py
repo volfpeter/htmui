@@ -20,6 +20,7 @@ def breadcrumb(
     *children: ComponentType,
     separator: ComponentType = chevron_right_icon,
     class_: str | None = None,
+    aria_label: str = "Breadcrumb",
     **kwargs: PropertyValue,
 ) -> ComponentType:
     """
@@ -29,6 +30,7 @@ def breadcrumb(
         *children: Breadcrumb items.
         separator: Separator to be inserted between items.
         class_: Extra CSS classes for the root element.
+        aria_label: Accessible name for the breadcrumb.
         **kwargs: Extra attributes for the root element.
     """
     return html.nav(
@@ -39,5 +41,6 @@ def breadcrumb(
             ),
         ),
         class_=join("breadcrumb", class_),
+        aria_label=aria_label,
         **kwargs,
     )
