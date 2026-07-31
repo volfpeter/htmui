@@ -48,8 +48,9 @@ root class; don't re-state layout utilities Basecoat CSS already applies.
 
 ## Types
 
-- Shared only in `typing.py`: `Align`, `Side`, `ButtonVariant`, `ButtonSize`.
-- Everything else is local (`CardSize`, `SidebarItemSize`).
+- Shared only in `typing.py`: `Align`, `Side`.
+- Everything else is local (`CardSize`, `SidebarItemSize`, `ButtonVariant` and
+  `ButtonSize` in `button.py`).
 - `data-size` / `data-variant` sets differ per component — grep that component's CSS/mdx.
 - One non-default yes/no token → `bool` (`destructive=True`). Size token → local
   `Literal["sm"] | None`. No global `Size`/`Variant`.

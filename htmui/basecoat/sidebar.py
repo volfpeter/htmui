@@ -13,7 +13,7 @@ from htmy import (
     join_classes,
 )
 
-from .typing import ButtonSize, ButtonVariant
+from .button import ButtonSize, ButtonVariant
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"

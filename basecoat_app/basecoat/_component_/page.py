@@ -7,6 +7,7 @@ from htmui.basecoat import (
     alert,
     badge,
     breadcrumb,
+    button,
     button_group,
     card,
     codeblock,
@@ -32,6 +33,7 @@ from ._examples import (
     alert_example,
     badge_example,
     breadcrumb_example,
+    button_example,
     button_group_example,
     card_example,
     codeblock_example,
@@ -80,6 +82,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Breadcrumb",
         "code_example": breadcrumb_example,
         "component_impl": breadcrumb,
+        "example": None,
+    },
+    "button": {
+        "title": "Button",
+        "code_example": button_example,
+        "component_impl": button,
         "example": None,
     },
     "button-group": {

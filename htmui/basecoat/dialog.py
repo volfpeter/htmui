@@ -2,7 +2,7 @@ from typing import Literal
 
 from htmy import Component, ComponentType, PropertyValue, SafeStr, as_component_sequence, html, join_classes
 
-from .typing import ButtonSize, ButtonVariant
+from .button import ButtonSize, ButtonVariant
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
