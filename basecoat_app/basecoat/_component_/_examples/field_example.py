@@ -1,6 +1,6 @@
 from htmy import ComponentType, html
 
-from htmui.basecoat.field import field, fieldset
+from htmui.basecoat.field import field, field_separator, fieldset
 
 
 def example() -> ComponentType:
@@ -10,6 +10,7 @@ def example() -> ComponentType:
                 html.label("Title", for_="title-input"),
                 html.input_(id="title-input", type="text", required=""),
             ),
+            field_separator("Details"),
             field(
                 html.label("Description", for_="description-input"),
                 html.textarea(id="description-input"),
