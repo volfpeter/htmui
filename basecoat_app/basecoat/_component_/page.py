@@ -5,6 +5,7 @@ from basecoat_app.component_docs import ComponentData, component_docs
 from htmui.basecoat import (
     accordion,
     alert,
+    avatar,
     badge,
     breadcrumb,
     button,
@@ -31,6 +32,7 @@ from ._examples import (
     accordion_example,
     alert_dialog_example,
     alert_example,
+    avatar_example,
     badge_example,
     breadcrumb_example,
     button_example,
@@ -70,6 +72,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Alert Dialog",
         "code_example": alert_dialog_example,
         "component_impl": dialog,
+        "example": None,
+    },
+    "avatar": {
+        "title": "Avatar",
+        "code_example": avatar_example,
+        "component_impl": avatar,
         "example": None,
     },
     "badge": {
