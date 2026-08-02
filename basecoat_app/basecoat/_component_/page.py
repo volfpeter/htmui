@@ -25,6 +25,7 @@ from htmui.basecoat import (
     select,
     sidebar,
     spinner,
+    table,
     tabs,
     theme_switcher,
     toast,
@@ -54,6 +55,7 @@ from ._examples import (
     select_example,
     sidebar_example,
     spinner_example,
+    table_example,
     tabs_example,
     theme_switcher_example,
     toast_example,
@@ -196,6 +198,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Spinner",
         "code_example": spinner_example,
         "component_impl": spinner,
+        "example": None,
+    },
+    "table": {
+        "title": "Table",
+        "code_example": table_example,
+        "component_impl": table,
         "example": None,
     },
     "tabs": {
