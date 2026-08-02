@@ -18,6 +18,7 @@ from htmui.basecoat import (
     drawer,
     dropdown_menu,
     field,
+    item,
     pagination,
     popover,
     radio_group,
@@ -46,6 +47,7 @@ from ._examples import (
     drawer_example,
     dropdown_menu_example,
     field_example,
+    item_example,
     pagination_example,
     popover_example,
     radio_group_example,
@@ -152,6 +154,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Field",
         "code_example": field_example,
         "component_impl": field,
+        "example": None,
+    },
+    "item": {
+        "title": "Item",
+        "code_example": item_example,
+        "component_impl": item,
         "example": None,
     },
     "pagination": {
