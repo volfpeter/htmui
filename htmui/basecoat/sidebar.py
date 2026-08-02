@@ -14,6 +14,7 @@ from htmy import (
 )
 
 from .button import ButtonSize, ButtonVariant
+from .typing import HorizontalSide
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
@@ -25,9 +26,6 @@ js = SafeStr(
     '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/sidebar.min.js" defer></script>'
 )
 
-
-SidebarSide = Literal["left", "right"]
-"""Side of the viewport the sidebar attaches to."""
 
 SidebarItemVariant = Literal["default", "outline"]
 """Visual variant for menu items and submenu summaries."""
@@ -51,7 +49,7 @@ def sidebar(
     aria_label: str | None = None,
     header: ComponentType | None = None,
     footer: ComponentType | None = None,
-    side: SidebarSide = "left",
+    side: HorizontalSide = "left",
     initial_open: bool = True,
     initial_mobile_open: bool = False,
     class_: str | None = None,

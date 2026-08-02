@@ -15,6 +15,7 @@ from htmui.basecoat import (
     combobox,
     command,
     dialog,
+    drawer,
     dropdown_menu,
     field,
     pagination,
@@ -42,6 +43,7 @@ from ._examples import (
     combobox_example,
     command_example,
     dialog_example,
+    drawer_example,
     dropdown_menu_example,
     field_example,
     pagination_example,
@@ -132,6 +134,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Dialog",
         "code_example": dialog_example,
         "component_impl": dialog,
+        "example": None,
+    },
+    "drawer": {
+        "title": "Drawer",
+        "code_example": drawer_example,
+        "component_impl": drawer,
         "example": None,
     },
     "dropdown-menu": {

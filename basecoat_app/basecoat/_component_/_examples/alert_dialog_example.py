@@ -12,7 +12,13 @@ def example() -> ComponentType:
             description=(
                 "This is an example alert dialog. It cannot be closed by clicking on the backdrop."
             ),
-            footer=html.button("Close", class_="btn", onclick=dialog.handle_close_button_click.close),
+            footer=html.footer(
+                html.button(
+                    "Close",
+                    class_="btn",
+                    onclick=dialog.handle_close_button_click.close,
+                ),
+            ),
             close_button=None,
             alert=True,
         ),

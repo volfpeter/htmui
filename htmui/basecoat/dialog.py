@@ -1,20 +1,14 @@
 from typing import Literal
 
-from htmy import Component, ComponentType, PropertyValue, SafeStr, as_component_sequence, html, join_classes
+from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
 
 from .button import ButtonSize, ButtonVariant
+from .typing import IdToProperty
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
 __framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/dialog/"
-
-AlertDialogSize = Literal["sm"]
-
-
-class handle_click:
-    close: str = "if (event.target === this) this.close()"
-    delete: str = "if (event.target === this) this.delete()"
 
 
 class handle_close_button_click:
@@ -56,12 +50,20 @@ def close_button(
     )
 
 
+AlertDialogSize = Literal["sm"]
+
+
+class handle_click:
+    close: str = "if (event.target === this) this.close()"
+    delete: str = "if (event.target === this) this.delete()"
+
+
 def dialog(
     *children: ComponentType,
     id: str,
     title: ComponentType,
     description: ComponentType | None = None,
-    footer: Component | None = None,
+    footer: ComponentType | None = None,
     close_button: ComponentType | None = close_button(),  # noqa: B008
     figure: ComponentType | None = None,
     alert: bool = False,
@@ -79,7 +81,7 @@ def dialog(
         id: Dialog element id.
         title: Dialog title.
         description: Optional description shown under the title.
-        footer: Optional footer content, e.g. action buttons.
+        footer: Optional footer. Should be an `html.footer(...)` when provided.
         close_button: Optional close button.
         figure: Optional media to show in a `figure` in the header.
         alert: Whether this is an alert dialog.
@@ -107,7 +109,7 @@ def dialog(
                 html.p(description, id=description_id) if description is not None else None,
             ),
             html.section(*children) if len(children) > 0 else None,
-            html.footer(*as_component_sequence(footer)) if footer else None,
+            footer,
             close_button,
             class_=content_class,
         ),
@@ -117,21 +119,47 @@ def dialog(
     )
 
 
+class handle_show_button_click:
+    @staticmethod
+    def show_modal(dialog_id: str) -> PropertyValue:
+        return f"document.getElementById('{dialog_id}').showModal()"
+
+
 def show_dialog_button(
     title: ComponentType,
     *,
-    dialog_id: str,
+    dialog_id: str | None = None,
+    onclick: IdToProperty | None = handle_show_button_click.show_modal,
     class_: str | None = None,
     variant: ButtonVariant | None = "outline",
     **kwargs: PropertyValue,
 ) -> ComponentType:
-    """Button that opens a dialog with `showModal()`."""
+    """
+    Button that opens a dialog.
+
+    Arguments:
+        title: Button content.
+        dialog_id: Target dialog ID. Required when `onclick` is not `None`.
+        onclick: Optional callback that receives `dialog_id` and returns the value of
+            the `onclick` property. Defaults to `handle_show_button_click.show_modal()`.
+        class_: Extra CSS classes for the button.
+        variant: Button variant.
+        **kwargs: Extra attributes for the button.
+    """
+    if onclick is not None:
+        if dialog_id is None:
+            raise ValueError("dialog_id is required when onclick is set")
+
+        click = onclick(dialog_id)
+        if click is not None:
+            kwargs["onclick"] = click
+
     if variant is not None:
         kwargs["data_variant"] = variant
+
     return html.button(
         title,
         class_=join_classes("btn", class_),
         type="button",
-        onclick=f"document.getElementById('{dialog_id}').showModal()",
         **kwargs,
     )

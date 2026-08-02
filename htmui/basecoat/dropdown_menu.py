@@ -1,7 +1,7 @@
 from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
 
 from .button import ButtonVariant
-from .typing import Align, Side
+from .typing import Align, FloatingSide
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
@@ -23,7 +23,7 @@ def dropdown_menu(
     class_: str | None = None,
     popover_class: str | None = None,
     popover_align: Align | None = None,
-    popover_side: Side | None = None,
+    popover_side: FloatingSide | None = None,
     **kwargs: PropertyValue,
 ) -> ComponentType:
     menu_id = f"{id}-menu"

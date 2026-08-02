@@ -24,6 +24,10 @@ js = SafeStr('<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/<
 
 App-wide assets live in `cdn.py`, not per component.
 
+Declaration order: public/main first (unless a default arg forces otherwise).
+Types/constants/handlers sit next to the callable that uses them — cluster per
+helper, don't hoist everything to the top. See `dialog.py`.
+
 ## Functions
 
 Flat functions returning `ComponentType`, children positional:
@@ -48,7 +52,7 @@ root class; don't re-state layout utilities Basecoat CSS already applies.
 
 ## Types
 
-- Shared only in `typing.py`: `Align`, `Side`.
+- Shared only in `typing.py` (e.g. `Align`, `Side`).
 - Everything else is local (`CardSize`, `SidebarItemSize`, `ButtonVariant` and
   `ButtonSize` in `button.py`).
 - `data-size` / `data-variant` sets differ per component — grep that component's CSS/mdx.
@@ -83,5 +87,6 @@ components — confirm with the user first.
 
 ## Examples
 
-`basecoat_app/.../_examples/<name>_example.py` → `example()`. Don't edit unless the
-change breaks it or a required API must be shown. Catalog: `page.py`.
+`basecoat_app/.../_examples/<name>_example.py` → `example()` first, helpers below.
+Don't edit unless broken by the change or a required API must appear. Catalog:
+`page.py`.

@@ -12,6 +12,12 @@ def example() -> ComponentType:
             id="example-dialog",
             title="Example dialog",
             description="This is an example dialog description.",
-            footer=html.button("Close", class_="btn", onclick=dialog.handle_close_button_click.close),
+            footer=html.footer(
+                html.button(
+                    "Close",
+                    class_="btn",
+                    onclick=dialog.handle_close_button_click.close,
+                ),
+            ),
         ),
     )

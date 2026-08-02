@@ -12,7 +12,7 @@ Users copy helpers into their apps and adapt them — keep APIs lean.
   - `basecoat/` — BasecoatUI wrappers (`select.py`, `dialog.py`, …). Apps copy these
     files and adapt as needed.
   - `tailwind/`, `unstyled/` — framework-agnostic helpers.
-  - `basecoat/typing.py` — shared types only (`Align`, `Side`). Component-scoped
+  - `basecoat/typing.py` — shared types only (e.g. `Align`, `Side`). Component-scoped
     types stay in their module (`ButtonVariant`, `ButtonSize` live in `button.py`).
 - `basecoat/` — checked-out BasecoatUI source (source of truth):
   - `site/src/docs/components/*.mdx` — docs; `<Preview>` is the canonical DOM.
@@ -30,7 +30,7 @@ Users copy helpers into their apps and adapt them — keep APIs lean.
   Grep Basecoat for **that** component — don't invent values.
 - Flat functions returning `htmy` `ComponentType`. Match existing modules
   (`select.py`, `alert.py`, `card.py`).
-- Cover general use-cases; `**kwargs` for the rest. Detailed API/docstring/example
+- Cover general use-cases; `**kwargs` for the rest. API/layout/docstring/example
   rules: `.agents/component-patterns.md`.
 - Create/upgrade a component: `.agents/skills/basecoat-to-htmui`.
 - Before finishing:
