@@ -12,6 +12,13 @@ def example() -> ComponentType:
             destructive=True,
         ),
         alert(
+            "Enable it under your profile settings to get started.",
+            title="Dark mode is now available",
+            footer=html.footer(
+                html.button("Enable", type="button", class_="btn", data_size="xs"),
+            ),
+        ),
+        alert(
             "This alert has a custom styling.",
             title_class="text-green-500 underline",
             content_class="text-green-300",

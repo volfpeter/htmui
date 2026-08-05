@@ -5,9 +5,9 @@
   "author": "Peter Volf",
   "scripts": {},
   "devDependencies": {
-    "@tailwindcss/cli": "^4.1.16",
-    "basecoat-css": "^0.3.11",
-    "tailwindcss": "^4.1.16",
+    "@tailwindcss/cli": "^4.3.3",
+    "basecoat-css": "^1.0.2",
+    "tailwindcss": "^4.3.3",
     "uglify-js": "^3.19.3"
   }
 }

@@ -6,13 +6,21 @@ from htmui.basecoat import accordion
 def example() -> ComponentType:
     return accordion.accordion(
         *(
-            (
-                _summary_template.format(i=i),
-                html.div(*(html.p(_content_template.format(line=line, i=i)) for line in range(1, 4))),
+            accordion.accordion_item(
+                html.div(
+                    *(
+                        html.p(
+                            _content_template.format(line=line, i=i),
+                        )
+                        for line in range(1, 4)
+                    )
+                ),
+                summary=_summary_template.format(i=i),
+                open=i == 1,
             )
             for i in range(1, 6)
         ),
-        root_class="w-full",
+        class_="w-full",
     )
 
 

@@ -9,22 +9,24 @@ if TYPE_CHECKING:
     from htmy import ComponentType, PropertyValue
 
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/badge/"
 
-BadgeVariant = Literal["badge", "badge-secondary", "badge-destructive", "badge-outline"]
+BadgeVariant = Literal["secondary", "destructive", "outline", "ghost"]
 
 
 def badge(
     *children: ComponentType,
-    variant: BadgeVariant = "badge",
+    variant: BadgeVariant | None = None,
     class_: str | None = None,
     **kwargs: PropertyValue,
 ) -> ComponentType:
+    if variant is not None:
+        kwargs["data_variant"] = variant
     return html.span(
         *children,
-        class_=join(variant, class_),
+        class_=join("badge", class_),
         **kwargs,
     )

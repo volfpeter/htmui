@@ -1,7 +1,8 @@
 from htmy import ComponentSequence, ComponentType, html
 
-from htmui.basecoat.command import command, command_dialog, search_icon
-from htmui.unstyled import menu
+from htmui.basecoat.command import command, command_dialog, command_item, search_icon
+from htmui.basecoat.menu import menu_item_group
+from htmui.basecoat.separator import separator
 
 
 def example() -> ComponentType:
@@ -12,7 +13,8 @@ def example() -> ComponentType:
                 "⌘+K",
                 class_="kbd",
             ),
-            class_="btn-outline",
+            class_="btn",
+            data_variant="outline",
             type="button",
             onclick="document.getElementById('command-dialog-example').showModal()",
         ),
@@ -25,17 +27,18 @@ def example() -> ComponentType:
 
 def command_menu() -> ComponentSequence:
     return (
-        menu.group(
-            menu.menu_item(html.span("Commit")),
-            menu.menu_item(html.span("Pull")),
-            menu.menu_item(html.span("Push")),
+        menu_item_group(
+            command_item(html.span("Commit"), filter="Commit"),
+            command_item(html.span("Pull"), filter="Pull"),
+            command_item(html.span("Push"), filter="Push"),
             id="command-group-1",
             label="Git",
         ),
-        menu.group(
-            menu.menu_item(html.span("Review")),
-            menu.menu_item(html.span("Approve"), disabled=True),
-            menu.menu_item(html.span("Comment")),
+        separator,
+        menu_item_group(
+            command_item(html.span("Review"), filter="Review"),
+            command_item(html.span("Approve"), filter="Approve", disabled=True),
+            command_item(html.span("Comment"), filter="Comment"),
             id="command-group-2",
             label="Actions",
         ),

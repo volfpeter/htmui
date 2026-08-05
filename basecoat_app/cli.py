@@ -1,7 +1,7 @@
 import asyncio
 from pathlib import Path
 
-from htmy import Renderer, md
+from htmy import Renderer, html, md
 from typer import Typer
 
 app = Typer(name="CLI for the Basecoat app.")
@@ -24,7 +24,12 @@ def build_static_content() -> None:
     async def task() -> None:
         # -- Generate the index page from the README.md file.
         readme = app_path.parent / "README.md"
-        page_html = await Renderer().render(md.MD(readme))
+        page_html = await Renderer().render(
+            # Wrap markdown so the app's prose list styling (list-disc/decimal) is
+            # scoped to documentation content only and never reaches component
+            # <ul>/<ol> implementations elsewhere.
+            html.div(md.MD(readme), data_markdown="")
+        )
 
         with open(app_path / "page.html", "w") as file:
             file.write(page_html)

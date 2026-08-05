@@ -1,8 +1,8 @@
 from htmy import ComponentType, SafeStr, html, join_classes
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/"
 
 
@@ -40,10 +40,9 @@ def copy_button(icon: ComponentType = copy_icon) -> ComponentType:
     return html.button(
         icon,
         onclick=copy_button_click_handler,
-        class_=(
-            "btn-icon-ghost size-8 absolute right-2.5 top-2 "
-            "group hover:text-foreground text-muted-foreground"
-        ),
+        class_="btn size-8 absolute right-2.5 top-2 group hover:text-foreground text-muted-foreground",
+        data_variant="ghost",
+        data_size="icon",
     )
 
 

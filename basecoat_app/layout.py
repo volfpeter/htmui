@@ -18,7 +18,12 @@ def layout(children: ComponentType, request: Request) -> Component:
                 sidebar(request.url.path),
                 html.div(
                     html.header(
-                        sidebar_toggle(class_="btn-icon-ghost mr-auto"),
+                        sidebar_toggle(
+                            class_="btn mr-auto",
+                            variant="ghost",
+                            size="icon",
+                            sidebar_id="sidebar",
+                        ),
                         html.h1(
                             html.a(
                                 "BasecoatUI",
@@ -40,7 +45,8 @@ def layout(children: ComponentType, request: Request) -> Component:
                             github_icon,
                             href="https://github.com/volfpeter/htmui",
                             target="_blank",
-                            class_="btn-icon size-8",
+                            class_="btn size-8",
+                            data_size="icon",
                             data_tooltip="GitHub repository",
                             data_side="bottom",
                             data_align="end",

@@ -14,10 +14,6 @@ def group(
     )
 
 
-def separator() -> ComponentType:
-    return html.hr(role="separator")
-
-
 def menu_item(*children: ComponentType, disabled: bool = False, **kwargs: PropertyValue) -> ComponentType:
     if disabled:
         kwargs["aria-disabled"] = "true"

@@ -1,37 +1,14 @@
-from htmy import Component, ComponentType, PropertyValue, SafeStr, as_component_sequence, html
+from typing import Literal
 
-__version__ = "0.1.0"
+from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
+
+from .button import ButtonSize, ButtonVariant
+from .typing import IdToProperty
+
+__version__ = "0.2.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/dialog/"
-
-
-class handle_click:
-    close: str = "if (event.target === this) this.close()"
-    delete: str = "if (event.target === this) this.delete()"
-
-
-def dialog(
-    *children: ComponentType,
-    id: str,
-    title: str,
-    actions: Component = None,
-    close_button: ComponentType = None,
-    **kwargs: PropertyValue,
-) -> ComponentType:
-    title_id = f"{id}-title"
-    return html.dialog(
-        html.div(
-            html.header(html.h2(title, id=title_id)),
-            html.section(*children) if children else None,
-            html.footer(*as_component_sequence(actions)) if actions else None,
-            close_button if close_button else None,
-        ),
-        id=id,
-        class_="dialog w-full sm:max-w-[425px] max-h-[612px]",
-        aria_labelledby=title_id,
-        **kwargs,
-    )
 
 
 class handle_close_button_click:
@@ -41,7 +18,7 @@ class handle_close_button_click:
 
 close_icon = SafeStr(
     '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" '
-    'stroke-width="1.5" stroke="currentColor" class="size-6">'
+    'stroke-width="1.5" stroke="currentColor" class="size-5">'
     '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />'
     "</svg>"
 )
@@ -53,22 +30,136 @@ def close_button(
     *,
     onclick: str = handle_close_button_click.close,
     aria_label: str = "Close dialog",
+    class_: str | None = None,
+    size: ButtonSize | None = "icon-sm",
+    variant: ButtonVariant | None = "ghost",
+    **kwargs: PropertyValue,
 ) -> ComponentType:
+    """Close button for dialogs."""
+    if variant is not None:
+        kwargs["data_variant"] = variant
+    if size is not None:
+        kwargs["data_size"] = size
     return html.button(
         icon,
-        class_="cursor-pointer",
         type="button",
+        class_=join_classes("btn", class_),
         onclick=onclick,
         aria_label=aria_label,
+        **kwargs,
     )
 
 
-def show_dialog_button(
-    title: ComponentType, *, dialog_id: str, class_: str = "btn-outline"
+AlertDialogSize = Literal["sm"]
+
+
+class handle_click:
+    close: str = "if (event.target === this) this.close()"
+    delete: str = "if (event.target === this) this.delete()"
+
+
+def dialog(
+    *children: ComponentType,
+    id: str,
+    title: ComponentType,
+    description: ComponentType | None = None,
+    footer: ComponentType | None = None,
+    close_button: ComponentType | None = close_button(),  # noqa: B008
+    figure: ComponentType | None = None,
+    alert: bool = False,
+    size: AlertDialogSize | None = None,
+    class_: str | None = None,
+    content_class: str | None = None,
+    onclick: str = handle_click.close,
+    **kwargs: PropertyValue,
 ) -> ComponentType:
+    """
+    Dialog or alert-dialog modal.
+
+    Arguments:
+        *children: Dialog body content.
+        id: Dialog element id.
+        title: Dialog title.
+        description: Optional description shown under the title.
+        footer: Optional footer. Should be an `html.footer(...)` when provided.
+        close_button: Optional close button.
+        figure: Optional media to show in a `figure` in the header.
+        alert: Whether this is an alert dialog.
+        size: Dialog size.
+        class_: Extra CSS classes for the root `dialog` element.
+        content_class: Extra CSS classes for the inner content.
+        onclick: Click handler for the root `dialog` element. Ignored for alert dialogs.
+        **kwargs: Extra attributes for the `dialog` element.
+    """
+    title_id = f"{id}-title"
+    description_id = f"{id}-description"
+    kwargs["aria_labelledby"] = title_id
+    if not alert:
+        kwargs["onclick"] = onclick
+    if size is not None:
+        kwargs["data_size"] = size
+    if description is not None:
+        kwargs["aria_describedby"] = description_id
+
+    return html.dialog(
+        html.div(
+            html.header(
+                html.figure(figure) if figure is not None else None,
+                html.h2(title, id=title_id),
+                html.p(description, id=description_id) if description is not None else None,
+            ),
+            html.section(*children) if len(children) > 0 else None,
+            footer,
+            close_button,
+            class_=content_class,
+        ),
+        id=id,
+        class_=join_classes("alert-dialog" if alert else "dialog", class_),
+        **kwargs,
+    )
+
+
+class handle_show_button_click:
+    @staticmethod
+    def show_modal(dialog_id: str) -> PropertyValue:
+        return f"document.getElementById('{dialog_id}').showModal()"
+
+
+def show_dialog_button(
+    title: ComponentType,
+    *,
+    dialog_id: str | None = None,
+    onclick: IdToProperty | None = handle_show_button_click.show_modal,
+    class_: str | None = None,
+    variant: ButtonVariant | None = "outline",
+    **kwargs: PropertyValue,
+) -> ComponentType:
+    """
+    Button that opens a dialog.
+
+    Arguments:
+        title: Button content.
+        dialog_id: Target dialog ID. Required when `onclick` is not `None`.
+        onclick: Optional callback that receives `dialog_id` and returns the value of
+            the `onclick` property. Defaults to `handle_show_button_click.show_modal()`.
+        class_: Extra CSS classes for the button.
+        variant: Button variant.
+        **kwargs: Extra attributes for the button.
+    """
+    if onclick is not None:
+        if dialog_id is None:
+            raise ValueError("dialog_id is required when onclick is set")
+
+        click = onclick(dialog_id)
+        if click is not None:
+            kwargs["onclick"] = click
+
+    if variant is not None:
+        kwargs["data_variant"] = variant
+
     return html.button(
         title,
-        class_=class_,
+        class_=join_classes("btn", class_),
         type="button",
-        onclick=f"document.getElementById('{dialog_id}').showModal()",
+        **kwargs,
     )

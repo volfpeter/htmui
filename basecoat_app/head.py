@@ -3,6 +3,7 @@ from htmy import ComponentType, Context, SafeStr, component, html
 
 from htmui import highlightjs
 from htmui.basecoat import cdn as basecoat_cdn
+from htmui.basecoat import chart as basecoat_chart
 from htmui.basecoat import init_on_htmx_history_restore as basecoat_init
 from htmui.basecoat import theme_switcher
 
@@ -26,6 +27,8 @@ def head(ctx: Context) -> ComponentType:
         ),
         html.link(rel="stylesheet", href=f"/static/{settings.css_file}"),
         basecoat_cdn.js,
+        basecoat_chart.chart_js,
+        basecoat_chart.js,
         basecoat_init,
         theme_switcher.js,
         highlightjs.js(),

@@ -1,8 +1,8 @@
 from htmy import ComponentType, SafeStr, html, join_classes
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "0.3"
+__framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/pagination/"
 
 chevron_left_icon = SafeStr(
@@ -30,7 +30,8 @@ def pagination_item(
         html.a(
             *content,
             href=url,
-            class_=join_classes("btn-outline" if selected else "btn-ghost", class_),
+            class_=join_classes("btn", class_),
+            data_variant="outline" if selected else "ghost",
         )
     )
 
@@ -50,7 +51,7 @@ def pagination(
             *items,
             None
             if next_content is None
-            else pagination_item(chevron_right_icon, next_content, url=next_url),
+            else pagination_item(next_content, chevron_right_icon, url=next_url),
             class_="flex flex-row items-center gap-1",
         ),
         role="navigation",

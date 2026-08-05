@@ -15,5 +15,6 @@ __pycache__/
 node_modules/
 
 # Dev stuff
-dev/
-static/basecoat-dev.css
+/basecoat/
+/dev/
+/static/basecoat-dev.css
