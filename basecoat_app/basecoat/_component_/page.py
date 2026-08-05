@@ -23,6 +23,7 @@ from htmui.basecoat import (
     item,
     pagination,
     popover,
+    progress,
     radio_group,
     select,
     sidebar,
@@ -57,6 +58,7 @@ from ._examples import (
     item_example,
     pagination_example,
     popover_example,
+    progress_example,
     radio_group_example,
     select_example,
     sidebar_example,
@@ -194,6 +196,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Popover",
         "code_example": popover_example,
         "component_impl": popover,
+        "example": None,
+    },
+    "progress": {
+        "title": "Progress",
+        "code_example": progress_example,
+        "component_impl": progress,
         "example": None,
     },
     "radio-group": {
