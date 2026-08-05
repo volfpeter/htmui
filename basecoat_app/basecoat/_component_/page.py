@@ -11,6 +11,7 @@ from htmui.basecoat import (
     button,
     button_group,
     card,
+    chart,
     codeblock,
     combobox,
     command,
@@ -44,6 +45,7 @@ from ._examples import (
     button_example,
     button_group_example,
     card_example,
+    chart_example,
     codeblock_example,
     combobox_example,
     command_example,
@@ -120,6 +122,12 @@ basecoat_components: dict[str, ComponentData] = {
         "title": "Card",
         "code_example": card_example,
         "component_impl": card,
+        "example": None,
+    },
+    "chart": {
+        "title": "Chart",
+        "code_example": chart_example,
+        "component_impl": chart,
         "example": None,
     },
     "codeblock": {
