@@ -3,7 +3,7 @@ from typing import Literal
 from htmy import ComponentType, PropertyValue, html
 from htmy.utils import join
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __framework__ = "BasecoatUI"
 __framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/card/"

@@ -3,7 +3,7 @@ from typing import Any, Literal
 
 from htmy import ComponentType, PropertyValue, SafeStr, XBool, html, join_classes
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __framework__ = "BasecoatUI"
 __framework_version__ = "1"
 __framework_url__ = "https://basecoatui.com/components/select/"
