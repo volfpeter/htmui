@@ -10,3 +10,5 @@ css = SafeStr(
 )
 
 js = SafeStr('<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/all.min.js" defer></script>')
+
+tailwind_css = SafeStr('<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>')

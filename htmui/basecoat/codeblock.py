@@ -52,3 +52,59 @@ def codeblock(code: str, *, code_class: str | None = None) -> ComponentType:
         copy_button(),
         class_="grid text-sm max-h-[650px] overflow-y-auto rounded-xl scrollbar relative",
     )
+
+
+_default_hljs_version = "11.11.1"
+
+
+def highlightjs_theme(theme: str = "default", *, version: str = _default_hljs_version) -> SafeStr:
+    return SafeStr(
+        f'<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{version}/styles/{theme}.min.css">'
+    )
+
+
+def highlightjs_js(*, version: str = _default_hljs_version) -> SafeStr:
+    return SafeStr(
+        f'<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{version}/highlight.min.js"></script>'
+    )
+
+
+def highlightjs_languages(*languages: str, version: str = _default_hljs_version) -> SafeStr:
+    return SafeStr(
+        "\n".join(
+            (
+                f'<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{version}/languages/{lang}.min.js"></script>'
+                for lang in languages
+            )
+        )
+    )
+
+
+class highlightjs_events:
+    dom_content_loaded = "DOMContentLoaded"
+    htmx_after_swap = "htmx:after:swap"
+    htmx_v2_after_swap = "htmx:afterSwap"
+
+
+def highlightjs_on_load(*events: str) -> SafeStr:
+    return SafeStr(
+        "\n".join(
+            (
+                "<script>",
+                "const highlight = () => {",
+                "  if (!window.hljs) return;",
+                "  document",
+                "  .querySelectorAll(",
+                "    'pre code:not([data-highlighted]), code.highlight:not([data-highlighted])'",
+                ")",
+                "  .forEach(el => window.hljs.highlightElement(el));",
+                "};",
+                "",
+                "if (!window._hljsInit) {",
+                "  window._hljsInit = true;",
+                *(f"  document.addEventListener('{event}', highlight);" for event in events),
+                "}",
+                "</script>",
+            )
+        )
+    )

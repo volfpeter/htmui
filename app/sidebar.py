@@ -5,8 +5,6 @@ from htmui.basecoat.sidebar import sidebar_group, sidebar_item
 
 from .basecoat._component_.page import basecoat_components
 from .component_docs import ComponentData
-from .tailwind._component_.page import tailwind_components
-from .unstyled._component_.page import unstyled_components
 
 
 def sidebar(path: str) -> ComponentType:
@@ -17,20 +15,6 @@ def sidebar(path: str) -> ComponentType:
             path=path,
             title=SafeStr("BasecoatUI"),
             url_prefix="/basecoat",
-        ),
-        _component_group(
-            tailwind_components,
-            id="tailwind-components-group",
-            path=path,
-            title=SafeStr("TailwindCSS"),
-            url_prefix="/tailwind",
-        ),
-        _component_group(
-            unstyled_components,
-            id="unstyled-components-group",
-            path=path,
-            title=SafeStr("Unstyled"),
-            url_prefix="/unstyled",
         ),
         header=html.a(SafeStr("htmui"), href="/", class_="font-semibold", hx_boost="true"),
         id="sidebar",

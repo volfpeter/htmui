@@ -3,8 +3,8 @@ from typing import Any, Protocol, TypedDict
 
 from htmy import ComponentType, SafeStr, html
 
+from app.centered import centered
 from htmui.basecoat.codeblock import codeblock
-from htmui.tailwind.centered import centered
 
 
 class Example(Protocol):

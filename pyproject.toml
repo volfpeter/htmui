@@ -3,26 +3,26 @@ name = "htmui"
 description = "htmy component library"
 readme = "README.md"
 version = "0.1.0"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.136.3",
-    "holm>=0.9.0",
-    "htmy[lxml]>=0.10.1",
-    "pydantic-settings>=2.12.0",
-    "typer>=0.24.1",
-    "uvicorn>=0.38.0",
+    "holm>=0.10.0",
+    "htmy[lxml]>=0.13.1",
+    "pydantic-settings>=2.15.0",
+    "typer>=0.27.1",
+    "uvicorn>=0.52.1",
 ]
 
 [dependency-groups]
 dev = [
-    "mypy>=1.18.2",
-    "poethepoet>=0.37.0",
-    "ruff>=0.14.3",
-    "watchfiles>=1.1.1",
+    "mypy>=2.3.0",
+    "poethepoet>=0.48.0",
+    "ruff>=0.16.2",
+    "watchfiles>=1.2.0",
 ]
 
 [tool.fastapi]
-entrypoint = "basecoat_app.main:app"
+entrypoint = "app.main:app"
 
 [tool.mypy]
 strict = true
@@ -54,15 +54,12 @@ lint.select = [
 
 [tool.poe.tasks]
 
-basecoat-dev = "uvicorn basecoat_app.main:app --reload"
-basecoat-prod = "uvicorn basecoat_app.main:app --reload"
+build-content = "python -m app.cli build-static-content"
 
-build-basecoat-content = "python -m basecoat_app.cli build-static-content"
+build-dev-css = "npx @tailwindcss/cli -i static/basecoat-base.css -o static/basecoat-dev.css"
+build-prod-css = "npx @tailwindcss/cli -i ./static/basecoat-base.css -o ./static/basecoat.css --minify"
 
-build-basecoat-dev-css = "npx @tailwindcss/cli -i static/basecoat-base.css -o static/basecoat-dev.css"
-build-basecoat-prod-css = "npx @tailwindcss/cli -i ./static/basecoat-base.css -o ./static/basecoat.css --minify"
-
-build.sequence = ["build-basecoat-content", "build-basecoat-prod-css"]
+build.sequence = ["build-content", "build-prod-css"]
 
 format = "ruff format . --check"
 format-fix = "ruff format ."
@@ -74,3 +71,11 @@ mypy = "mypy ."
 
 check.sequence = ["format", "lint", "mypy"]
 check.ignore_fail = "return_non_zero"
+
+[tool.poe.tasks.dev]
+cmd = "uvicorn app.main:app --reload"
+env = { CSS_FILE = "basecoat-dev.css" }
+
+[tool.poe.tasks.prod]
+cmd = "uvicorn app.main:app --reload"
+env = { CSS_FILE = "basecoat.css" }

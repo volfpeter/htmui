@@ -16,13 +16,7 @@
 <p>Most of the BasecoatUI components are implemented, except trivial ones that only require a single CSS class name.</p>
 <p>There are also extra components like <code>codeblock</code>, that use BasecoatUI to a degree, but are not in BasecoatUI.</p>
 <h3>Highlight.js</h3>
-<p><a href="https://highlightjs.org/">Highlight.js</a> components and utilities are in the <code>htmui/highlightjs.py</code> module.</p>
-<h3>TailwindCSS</h3>
-<p><a href="https://tailwindcss.com/">TailwindCSS</a> components and utilities are in the <code>htmui/tailwind</code> package.</p>
-<p>There are a couple of simple utility components that use TailwindCSS classes. The goal of these components is to complement TailwindCSS-based UI libraries.</p>
-<h3>Unstyled</h3>
-<p>General components and utilities are in the <code>htmui/unstyled</code> package.</p>
-<p>Similarly minimal as the TailwindCSS components, the goal is to complement TailwindCSS-based UI libraries.</p>
+<p><a href="https://highlightjs.org/">Highlight.js</a> helpers live in <code>htmui/basecoat/codeblock.py</code> alongside the <code>codeblock</code> component. They are the runtime half of the <code>codeblock</code> component, responsible for code highlighting.</p>
 <h2>Development</h2>
 <h3>Tools</h3>
 <p>Python:</p>
@@ -43,7 +37,7 @@
 <p>To get started, run <code>uv sync</code> and <code>npm install</code>.</p>
 <h2>Applications</h2>
 <h3>Basecoat</h3>
-<p>Just run <code>honcho start</code>. This will spin up <code>basecoat_app</code> and the corresponding TailwindCSS CLI that generates the application's CSS file.</p>
+<p>Just run <code>honcho start</code>. This will spin up <code>app</code> and the corresponding TailwindCSS CLI that generates the application's CSS file.</p>
 <h2>License</h2>
 <p>The package is open-sourced under the conditions of the <a href="https://choosealicense.com/licenses/mit/">MIT license</a>.</p>
 <h2>Credits</h2>

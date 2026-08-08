@@ -19,7 +19,7 @@ Users copy helpers into their apps and adapt them — keep APIs lean.
   - `src/css/components/*.css`, `src/css/styles/*.css` — allowed `data-*` values
     (per component, not global).
   - `src/templates/{jinja,nunjucks}/` — reference macros (naming/intent; may be absent).
-- `basecoat_app/` — demo app
+- `app/` — demo app
   - `basecoat/_component_/page.py` — slug → impl + example.
   - `basecoat/_component_/_examples/` — one `*_example.py` per component. Check it
     before changing a public API.
@@ -38,7 +38,7 @@ Users copy helpers into their apps and adapt them — keep APIs lean.
   ```
   uv run poe check        # ruff format --check, ruff check, mypy (strict)
   uv run poe check --fix  # also auto-fix
-  uv run poe basecoat-dev # serve the demo app
+  uv run poe dev # serve the demo app
   ```
 
 ## Debugging

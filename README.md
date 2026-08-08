@@ -32,19 +32,7 @@ There are also extra components like `codeblock`, that use BasecoatUI to a degre
 
 ### Highlight.js
 
-[Highlight.js](https://highlightjs.org/) components and utilities are in the `htmui/highlightjs.py` module.
-
-### TailwindCSS
-
-[TailwindCSS](https://tailwindcss.com/) components and utilities are in the `htmui/tailwind` package.
-
-There are a couple of simple utility components that use TailwindCSS classes. The goal of these components is to complement TailwindCSS-based UI libraries.
-
-### Unstyled
-
-General components and utilities are in the `htmui/unstyled` package.
-
-Similarly minimal as the TailwindCSS components, the goal is to complement TailwindCSS-based UI libraries.
+[Highlight.js](https://highlightjs.org/) helpers live in `htmui/basecoat/codeblock.py` alongside the `codeblock` component. They are the runtime half of the `codeblock` component, responsible for code highlighting.
 
 ## Development
 
@@ -71,7 +59,7 @@ To get started, run `uv sync` and `npm install`.
 
 ### Basecoat
 
-Just run `honcho start`. This will spin up `basecoat_app` and the corresponding TailwindCSS CLI that generates the application's CSS file.
+Just run `honcho start`. This will spin up `app` and the corresponding TailwindCSS CLI that generates the application's CSS file.
 
 ## License
 

@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from htmy import Component, html
 
-from basecoat_app.component_docs import ComponentData, component_docs
+from app.component_docs import ComponentData, component_docs
 from htmui.basecoat import (
     accordion,
     alert,
