@@ -54,8 +54,13 @@ lint.select = [
 
 [tool.poe.tasks]
 
-dev = "uvicorn app.main:app --reload"
-prod = "uvicorn app.main:app --reload"
+[tool.poe.tasks.dev]
+cmd = "uvicorn app.main:app --reload"
+env = { CSS_FILE = "basecoat-dev.css" }
+
+[tool.poe.tasks.prod]
+cmd = "uvicorn app.main:app --reload"
+env = { CSS_FILE = "basecoat.css" }
 
 build-content = "python -m app.cli build-static-content"
 
