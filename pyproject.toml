@@ -54,14 +54,6 @@ lint.select = [
 
 [tool.poe.tasks]
 
-[tool.poe.tasks.dev]
-cmd = "uvicorn app.main:app --reload"
-env = { CSS_FILE = "basecoat-dev.css" }
-
-[tool.poe.tasks.prod]
-cmd = "uvicorn app.main:app --reload"
-env = { CSS_FILE = "basecoat.css" }
-
 build-content = "python -m app.cli build-static-content"
 
 build-dev-css = "npx @tailwindcss/cli -i static/basecoat-base.css -o static/basecoat-dev.css"
@@ -79,3 +71,11 @@ mypy = "mypy ."
 
 check.sequence = ["format", "lint", "mypy"]
 check.ignore_fail = "return_non_zero"
+
+[tool.poe.tasks.dev]
+cmd = "uvicorn app.main:app --reload"
+env = { CSS_FILE = "basecoat-dev.css" }
+
+[tool.poe.tasks.prod]
+cmd = "uvicorn app.main:app --reload"
+env = { CSS_FILE = "basecoat.css" }
