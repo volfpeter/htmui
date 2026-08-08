@@ -32,7 +32,7 @@ There are also extra components like `codeblock`, that use BasecoatUI to a degre
 
 ### Highlight.js
 
-[Highlight.js](https://highlightjs.org/) helpers live in `htmui/basecoat/codeblock.py` alongside the `codeblock` component. They are the runtime half of the `codeblock` component, reponsible for code highlighting.
+[Highlight.js](https://highlightjs.org/) helpers live in `htmui/basecoat/codeblock.py` alongside the `codeblock` component. They are the runtime half of the `codeblock` component, responsible for code highlighting.
 
 ## Development
 
