@@ -12,14 +12,18 @@ from htmy import ComponentType, PropertyValue, SafeStr, html, join_classes
 
 __version__ = "0.1.0"
 __framework__ = "BasecoatUI"
-__framework_version__ = "<major>"  # basecoat package major, include minor if component introduced in minor version
+__framework_version__ = (
+    "<major>"  # basecoat package major, include minor if component introduced in minor version
+)
 __framework_url__ = "https://basecoatui.com/components/<name>/"
 ```
 
 Per-component JS (major pin only):
 
 ```python
-js = SafeStr('<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/<name>.min.js" defer></script>')
+js = SafeStr(
+    '<script src="https://cdn.jsdelivr.net/npm/basecoat-css@1/dist/js/<name>.min.js" defer></script>'
+)
 ```
 
 App-wide assets live in `cdn.py`, not per component.
