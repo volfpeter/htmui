@@ -11,7 +11,6 @@ Users copy helpers into their apps and adapt them — keep APIs lean.
 - `htmui/` — the component library
   - `basecoat/` — BasecoatUI wrappers (`select.py`, `dialog.py`, …). Apps copy these
     files and adapt as needed.
-  - `tailwind/`, `unstyled/` — framework-agnostic helpers.
   - `basecoat/typing.py` — shared types only (e.g. `Align`, `Side`). Component-scoped
     types stay in their module (`ButtonVariant`, `ButtonSize` live in `button.py`).
 - `basecoat/` — checked-out BasecoatUI source (source of truth):
