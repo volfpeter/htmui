@@ -3,7 +3,7 @@ from typing import Any, Protocol, TypedDict
 
 from htmy import ComponentType, SafeStr, html
 
-from basecoat_app.centered import centered
+from app.centered import centered
 from htmui.basecoat.codeblock import codeblock
 
 

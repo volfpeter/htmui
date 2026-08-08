@@ -87,6 +87,6 @@ components — confirm with the user first.
 
 ## Examples
 
-`basecoat_app/.../_examples/<name>_example.py` → `example()` first, helpers below.
+`app/.../_examples/<name>_example.py` → `example()` first, helpers below.
 Don't edit unless broken by the change or a required API must appear. Catalog:
 `page.py`.

@@ -22,7 +22,7 @@ dev = [
 ]
 
 [tool.fastapi]
-entrypoint = "basecoat_app.main:app"
+entrypoint = "app.main:app"
 
 [tool.mypy]
 strict = true
@@ -54,15 +54,15 @@ lint.select = [
 
 [tool.poe.tasks]
 
-basecoat-dev = "uvicorn basecoat_app.main:app --reload"
-basecoat-prod = "uvicorn basecoat_app.main:app --reload"
+dev = "uvicorn app.main:app --reload"
+prod = "uvicorn app.main:app --reload"
 
-build-basecoat-content = "python -m basecoat_app.cli build-static-content"
+build-content = "python -m app.cli build-static-content"
 
-build-basecoat-dev-css = "npx @tailwindcss/cli -i static/basecoat-base.css -o static/basecoat-dev.css"
-build-basecoat-prod-css = "npx @tailwindcss/cli -i ./static/basecoat-base.css -o ./static/basecoat.css --minify"
+build-dev-css = "npx @tailwindcss/cli -i static/basecoat-base.css -o static/basecoat-dev.css"
+build-prod-css = "npx @tailwindcss/cli -i ./static/basecoat-base.css -o ./static/basecoat.css --minify"
 
-build.sequence = ["build-basecoat-content", "build-basecoat-prod-css"]
+build.sequence = ["build-content", "build-prod-css"]
 
 format = "ruff format . --check"
 format-fix = "ruff format ."

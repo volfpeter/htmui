@@ -59,7 +59,7 @@ To get started, run `uv sync` and `npm install`.
 
 ### Basecoat
 
-Just run `honcho start`. This will spin up `basecoat_app` and the corresponding TailwindCSS CLI that generates the application's CSS file.
+Just run `honcho start`. This will spin up `app` and the corresponding TailwindCSS CLI that generates the application's CSS file.
 
 ## License
 
