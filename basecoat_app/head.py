@@ -1,11 +1,10 @@
 from holm import Metadata
 from htmy import ComponentType, Context, SafeStr, component, html
 
-from htmui import highlightjs
 from htmui.basecoat import cdn as basecoat_cdn
 from htmui.basecoat import chart as basecoat_chart
+from htmui.basecoat import codeblock, theme_switcher
 from htmui.basecoat import init_on_htmx_history_restore as basecoat_init
-from htmui.basecoat import theme_switcher
 
 from .settings import settings
 
@@ -31,10 +30,10 @@ def head(ctx: Context) -> ComponentType:
         basecoat_chart.js,
         basecoat_init,
         theme_switcher.js,
-        highlightjs.js(),
-        highlightjs.languages("python"),
-        highlightjs.highlight_on_load(
-            highlightjs.highlight_event.dom_content_loaded,
-            highlightjs.highlight_event.htmx_after_swap,
+        codeblock.highlightjs_js(),
+        codeblock.highlightjs_languages("python"),
+        codeblock.highlightjs_on_load(
+            codeblock.highlightjs_events.dom_content_loaded,
+            codeblock.highlightjs_events.htmx_after_swap,
         ),
     )

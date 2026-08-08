@@ -3,7 +3,7 @@ from typing import Literal
 from holm import action
 from htmy import Component, html
 
-from htmui.tailwind.centered import centered
+from basecoat_app.centered import centered
 
 _messages: dict[str | None, dict[Literal["title", "message"], str]] = {
     "not-found": {
