@@ -83,7 +83,6 @@ def highlightjs_languages(*languages: str, version: str = _default_hljs_version)
 class highlightjs_events:
     dom_content_loaded = "DOMContentLoaded"
     htmx_after_swap = "htmx:after:swap"
-    htmx_v2_after_swap = "htmx:afterSwap"
 
 
 def highlightjs_on_load(*events: str) -> SafeStr:

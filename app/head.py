@@ -4,7 +4,6 @@ from htmy import ComponentType, Context, SafeStr, component, html
 from htmui.basecoat import cdn as basecoat_cdn
 from htmui.basecoat import chart as basecoat_chart
 from htmui.basecoat import codeblock, theme_switcher
-from htmui.basecoat import init_on_htmx_history_restore as basecoat_init
 
 from .settings import settings
 
@@ -22,13 +21,12 @@ def head(ctx: Context) -> ComponentType:
         html.meta(name="viewport", content="width=device-width, initial-scale=1"),
         html.link(id="favicon", rel="icon", href="/static/favicon.ico"),
         SafeStr(  # HTMX
-            '<script src="https://cdn.jsdelivr.net/npm/htmx.org@4.0.0-alpha7/dist/htmx.min.js"></script>'
+            '<script src="https://cdn.jsdelivr.net/npm/htmx.org@4.0.0-beta6/dist/htmx.min.js"></script>'
         ),
         html.link(rel="stylesheet", href=f"/static/{settings.css_file}"),
         basecoat_cdn.js,
         basecoat_chart.chart_js,
         basecoat_chart.js,
-        basecoat_init,
         theme_switcher.js,
         codeblock.highlightjs_js(),
         codeblock.highlightjs_languages("python"),
