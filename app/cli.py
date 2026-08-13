@@ -1,4 +1,5 @@
 import asyncio
+import re
 from pathlib import Path
 
 from htmy import Renderer, html, md
@@ -32,9 +33,27 @@ def build_static_content() -> None:
         )
 
         with open(app_path / "page.html", "w") as file:
-            file.write(page_html)
+            file.write(_add_heading_ids(page_html))
 
     asyncio.run(task())
+
+
+def _add_heading_ids(content: str) -> str:
+    """Add GitHub-style heading ids so in-page anchors work."""
+
+    def repl(match: re.Match[str]) -> str:
+        level, inner = match.group(1), match.group(2)
+        slug = _slug(inner)
+        if slug == "":
+            return match.group(0)
+        return f'<h{level} id="{slug}">{inner}</h{level}>'
+
+    return re.compile(r"<h([1-6])>(.*?)</h\1>", flags=re.DOTALL).sub(repl, content)
+
+
+def _slug(text: str) -> str:
+    cleaned = re.compile(r"<[^>]+>").sub("", text).strip().lower()
+    return re.sub(r"[^a-z0-9]+", "-", cleaned).strip("-")
 
 
 if __name__ == "__main__":

@@ -1,45 +1,109 @@
 <div data-markdown="">
-<h1>htmui</h1>
-<p><code>htmui</code> is a Python library that implements complex UI components using <code>htmy</code>.</p>
-<p>It is designed with hypermedia applications, and specifically HTMX in mind.</p>
-<p>What if you are using Jinja or similar templating engines instead of <code>htmy</code>? Converting the components from <code>htmy</code> to your templating engine of choice is straightforward, because of how <code>htmy</code> mimics HTML.</p>
-<h2>Prerequisites</h2>
-<p>You need to have <a href="https://volfpeter.github.io/htmy/">htmy</a> installed in your project to be able to use <code>htmui</code> components.</p>
-<p>You can do it with a simple <code>pip install htmy</code>.</p>
-<p>For the best developer experience, it is recommended to use <a href="https://volfpeter.github.io/holm/">holm</a> as your application framework. It brings built-in <code>htmy</code> (and thus <code>htmui</code>) and HTMX support, and is built around FastAPI.</p>
-<h2>How to use</h2>
-<p><code>htmui</code> is designed to be "vendored". You don't install either the library or its components. Instead you copy the components you need into your project and adjust them to fit your requirements.</p>
-<h2>UI framework integrations</h2>
-<h3>BasecoatUI</h3>
-<p><a href="https://basecoatui.com/">BasecoatUI</a> components and utilities are in the <code>htmui/basecoat</code> package.</p>
-<p>These components require <a href="https://basecoatui.com/">BasecoatUI</a> and <a href="https://tailwindcss.com/">TailwindCSS</a> to be installed. While TailwindCSS fully works from a CDN, some BasecoatUI classes do not, so a full local JS setup is recommended.</p>
-<p>Most of the BasecoatUI components are implemented, except trivial ones that only require a single CSS class name.</p>
-<p>There are also extra components like <code>codeblock</code>, that use BasecoatUI to a degree, but are not in BasecoatUI.</p>
-<h3>Highlight.js</h3>
-<p><a href="https://highlightjs.org/">Highlight.js</a> helpers live in <code>htmui/basecoat/codeblock.py</code> alongside the <code>codeblock</code> component. They are the runtime half of the <code>codeblock</code> component, responsible for code highlighting.</p>
-<h2>Development</h2>
-<h3>Tools</h3>
+<p><img alt="Linters" src="https://github.com/volfpeter/htmui/actions/workflows/linters.yml/badge.svg" /></p>
+<p><strong>Source code</strong>: <a href="https://github.com/volfpeter/htmui">https://github.com/volfpeter/htmui</a></p>
+<p><strong>Live demo</strong>: <a href="https://htmui.vercel.app">https://htmui.vercel.app</a></p>
+<h1 id="htmui">htmui</h1>
+<p>Python UI components for <a href="https://volfpeter.github.io/htmy/">htmy</a>, wrapping <a href="https://basecoatui.com/">BasecoatUI</a> and <a href="https://tailwindcss.com/">Tailwind CSS</a>.</p>
+<p><code>htmui</code> is designed with hypermedia applications, and specifically <a href="https://htmx.org/">HTMX</a>, in mind. Components reproduce Basecoat's documented markup so Basecoat's runtime can enhance them.</p>
+<p><code>htmy</code> and <code>holm</code> have built-in Jinja support. If you use another templating engine, converting the components is straightforward, because <code>htmy</code> mimics HTML.</p>
+<h2 id="key-features">Key features</h2>
+<ul>
+<li><strong>Vendored</strong>: copy the components you need into your project and adapt them.</li>
+<li><strong><code>htmui init</code> CLI</strong> that copies selected components, their dependencies, and shared utilities.</li>
+<li><strong>BasecoatUI</strong> components as typed <code>htmy</code> functions: buttons, dialogs, sidebars, forms, and more.</li>
+<li>Extra helpers such as <code>codeblock</code> that are not part of Basecoat.</li>
+<li>Works anywhere <code>htmy</code> works, including <a href="https://volfpeter.github.io/holm/">holm</a>.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>You need <a href="https://volfpeter.github.io/htmy/">htmy</a> in your project:</p>
+<div class="codehilite"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>htmy
+</code></pre></div>
+
+<p>For the best developer experience, it is recommended to use <a href="https://volfpeter.github.io/holm/">holm</a>. It brings built-in <code>htmy</code> and HTMX support, and is built around FastAPI.</p>
+<p>The copied components also need <a href="https://basecoatui.com/">BasecoatUI</a> and <a href="https://tailwindcss.com/">Tailwind CSS</a> on the page. CDN snippets are included (see <a href="#assets">Assets</a>).</p>
+<h2 id="usage">Usage</h2>
+<p><code>htmui</code> is designed to be vendored. You do not install it as a runtime dependency. Instead, you copy the components you need into your project and adjust them.</p>
+<div class="codehilite"><pre><span></span><code>uvx<span class="w"> </span>htmui<span class="w"> </span>init
+</code></pre></div>
+
+<p>This copies the full catalog into <code>./components</code>. Use <code>-c</code> to copy only the components you need. Dependencies are included automatically:</p>
+<div class="codehilite"><pre><span></span><code>uvx<span class="w"> </span>htmui<span class="w"> </span>init<span class="w"> </span>-c<span class="w"> </span>dialog<span class="w"> </span>-c<span class="w"> </span><span class="k">select</span>
+</code></pre></div>
+
+<p>Useful options:</p>
+<div class="codehilite"><pre><span></span><code>uvx<span class="w"> </span>htmui<span class="w"> </span>init<span class="w"> </span>--src<span class="w">                  </span><span class="c1"># install into src/components/</span>
+uvx<span class="w"> </span>htmui<span class="w"> </span>init<span class="w"> </span>-p<span class="w"> </span>ui<span class="w">                  </span><span class="c1"># install into ./ui</span>
+uvx<span class="w"> </span>htmui<span class="w"> </span>init<span class="w"> </span>-c<span class="w"> </span>dialog<span class="w"> </span>--dry-run<span class="w">    </span><span class="c1"># print the plan, write nothing</span>
+uvx<span class="w"> </span>htmui<span class="w"> </span>init<span class="w"> </span>--force<span class="w">                </span><span class="c1"># overwrite existing files</span>
+uvx<span class="w"> </span>htmui<span class="w"> </span>init<span class="w"> </span>--skip-existing<span class="w">        </span><span class="c1"># keep existing files</span>
+uvx<span class="w"> </span>htmui<span class="w"> </span>version<span class="w">                     </span><span class="c1"># package and per-component versions</span>
+</code></pre></div>
+
+<p>You can also copy files from <code>htmui/basecoat/</code> by hand.</p>
+<h3 id="example">Example</h3>
+<p>After <code>htmui init</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htmy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ComponentType</span><span class="p">,</span> <span class="n">html</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">components.alert</span><span class="w"> </span><span class="kn">import</span> <span class="n">alert</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">components.button</span><span class="w"> </span><span class="kn">import</span> <span class="n">button</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">saved</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ComponentType</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">div</span><span class="p">(</span>
+        <span class="n">alert</span><span class="p">(</span><span class="s2">&quot;Your changes have been saved.&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Saved&quot;</span><span class="p">),</span>
+        <span class="n">button</span><span class="p">(</span><span class="s2">&quot;Continue&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p>Every component has a live example and its Python source in the sidebar.</p>
+<h2 id="assets">Assets</h2>
+<p>You can add the CDN snippets from <code>cdn</code> to your document head:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">htmy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ComponentType</span><span class="p">,</span> <span class="n">html</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">components</span><span class="w"> </span><span class="kn">import</span> <span class="n">cdn</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">head</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">ComponentType</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">head</span><span class="p">(</span>
+        <span class="n">cdn</span><span class="o">.</span><span class="n">css</span><span class="p">,</span>
+        <span class="n">cdn</span><span class="o">.</span><span class="n">tailwind_css</span><span class="p">,</span>
+        <span class="n">cdn</span><span class="o">.</span><span class="n">js</span><span class="p">,</span>
+    <span class="p">)</span>
+</code></pre></div>
+
+<p>Some Basecoat classes may not work with the Tailwind CDN setup, so a local JS/CSS setup is recommended for production. The <a href="https://github.com/volfpeter/htmui/tree/main/app">demo application</a> shows one such setup.</p>
+<p><code>codeblock</code> includes optional <a href="https://highlightjs.org/">Highlight.js</a> helpers for syntax highlighting.</p>
+<h2 id="related-projects">Related projects</h2>
+<ul>
+<li><a href="https://volfpeter.github.io/htmy/">htmy</a>: async Python server-side rendering.</li>
+<li><a href="https://volfpeter.github.io/holm/">holm</a>: Next.js-like developer experience on FastAPI, <code>htmy</code>, and FastHX.</li>
+<li><a href="https://volfpeter.github.io/fasthx/">FastHX</a>: HTMX rendering for FastAPI.</li>
+<li><a href="https://basecoatui.com/">BasecoatUI</a>: the design system these components wrap.</li>
+</ul>
+<h2 id="support">Support</h2>
+<p>Consider supporting the project through <a href="https://buymeacoffee.com/volfpeter">sponsoring</a>, or reach out for <a href="https://www.volfp.com/contact?subject=Consulting%20-%20htmui">consulting</a> so you can get the most out of the library.</p>
+<h2 id="development">Development</h2>
 <p>Python:</p>
 <ul>
 <li><code>uv</code> for project and dependency management.</li>
-<li><code>poethepoet</code> for running tasks. Run <code>uv run poe</code> to see all available tasks.</li>
-<li><code>mypy</code> for static code analysis.</li>
-<li><code>ruff</code> is used for formatting and linting.</li>
+<li><code>poethepoet</code> for tasks. Run <code>uv run poe</code> to see them.</li>
+<li><code>mypy</code> for static analysis.</li>
+<li><code>ruff</code> for formatting and linting.</li>
 </ul>
 <p>JavaScript:</p>
 <ul>
-<li><code>npm</code> for managing JavaScript dependencies for example applications.</li>
+<li><code>npm</code> for the demo app's Tailwind and Basecoat tooling.</li>
 </ul>
-<p>Other:</p>
-<ul>
-<li><code>honcho</code> for running applications that require multiple processes, like a Python application and the TailwindCSS CLI.</li>
-</ul>
-<p>To get started, run <code>uv sync</code> and <code>npm install</code>.</p>
-<h2>Applications</h2>
-<h3>Basecoat</h3>
-<p>Just run <code>honcho start</code>. This will spin up <code>app</code> and the corresponding TailwindCSS CLI that generates the application's CSS file.</p>
-<h2>License</h2>
+<p>To get started:</p>
+<div class="codehilite"><pre><span></span><code>uv<span class="w"> </span>sync
+npm<span class="w"> </span>install
+honcho<span class="w"> </span>start
+</code></pre></div>
+
+<p><code>honcho start</code> runs the demo app and the Tailwind watcher together. You can also run <code>uv run poe dev</code> and <code>uv run poe build-dev-css --watch</code> separately.</p>
+<p>The index page of the demo is generated from this README (<code>uv run poe build-content</code>).</p>
+<h2 id="license">License</h2>
 <p>The package is open-sourced under the conditions of the <a href="https://choosealicense.com/licenses/mit/">MIT license</a>.</p>
-<h2>Credits</h2>
-<p>This project wouldn't exist without the JavaScript components and excellent documentation of <a href="https://basecoatui.com/">BasecoatUI</a>.</p>
+<h2 id="credits">Credits</h2>
+<p>This project wouldn't exist without the components and documentation of <a href="https://basecoatui.com/">BasecoatUI</a>.</p>
 </div>
