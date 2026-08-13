@@ -1,8 +1,8 @@
 [project]
 name = "htmui"
+dynamic = ["version"]
 description = "htmy component library"
 readme = "README.md"
-version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.136.3",
@@ -12,6 +12,9 @@ dependencies = [
     "typer>=0.27.1",
     "uvicorn>=0.52.1",
 ]
+
+[project.scripts]
+htmui = "htmui.cli:app"
 
 [dependency-groups]
 dev = [
@@ -23,6 +26,17 @@ dev = [
 
 [tool.fastapi]
 entrypoint = "app.main:app"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.build]
+excludes = ["app/"]
+
+[tool.pdm.version]
+source = "file"
+path = "htmui/__init__.py"
 
 [tool.mypy]
 strict = true

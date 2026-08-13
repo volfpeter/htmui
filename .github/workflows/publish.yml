@@ -1,20 +1,17 @@
-name: Linters
+name: Publish
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  release:
     types:
-      - opened
-      - synchronize
-
-permissions:
-  contents: read
+      - created
 
 jobs:
-  Linters:
+  pypi-publish:
+    name: Upload release to PyPI
     runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -32,5 +29,8 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Run checks
-        run: uv run poe check
+      - name: Build package
+        run: uv build
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

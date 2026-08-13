@@ -19,12 +19,12 @@
         @apply mt-6 mb-6 font-semibold first:mt-2;
     }
 
+    a {
+        @apply font-medium underline;
+    }
+
     p {
         @apply my-6;
-
-        a {
-            @apply font-medium underline;
-        }
 
         code:not(pre > code) {
             @apply relative rounded-md bg-muted/50 px-[0.2rem] py-[0.2rem] font-mono text-sm;
