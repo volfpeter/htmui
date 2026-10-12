@@ -13,7 +13,7 @@ __framework_url__ = "https://basecoatui.com/components/dialog/"
 
 class handle_close_button_click:
     close: str = "this.closest('dialog').close()"
-    delete: str = "this.closest('dialog').delete()"
+    delete: str = "this.closest('dialog').close(); this.closest('dialog').remove()"
 
 
 close_icon = SafeStr(
@@ -55,7 +55,7 @@ AlertDialogSize = Literal["sm"]
 
 class handle_click:
     close: str = "if (event.target === this) this.close()"
-    delete: str = "if (event.target === this) this.delete()"
+    delete: str = "if (event.target === this) { this.close(); this.remove(); }"
 
 
 def dialog(
